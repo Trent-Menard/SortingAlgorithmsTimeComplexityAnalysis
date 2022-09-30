@@ -3,6 +3,8 @@
 Created on Fri Sep 30 15:29:30 2022
 
 @author: DJMack, Trent
+
+Code adapted from: https://medium.com/@george.seif94/a-tour-of-the-top-5-sorting-algorithms-with-python-code-43ea9aa02889
 """
 
 #Bubble sort algorithm
