@@ -58,8 +58,3 @@ def radixSort(inputArray):
         D -= 1
 
     return outputArray
-    
-input = [2,20,61,997,1,619]
-print(input)
-sorted = radixSort(input)
-print(sorted)
