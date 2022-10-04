@@ -48,6 +48,7 @@ stop = perf_counter()
 print("  10,000\t\t\t" + str(stop - start))
 
 
+
 # Random numbers list (for unsorted data test)
 print("\n*Generating random data, one moment please...*\n")
 Test_100 = [random.randint(0, 100) for x in range(100)]
@@ -73,6 +74,7 @@ Test_10K_Result = radixSort(Test_10K)
 stop = perf_counter()
 print("  10,000\t\t\t" + str(stop - start))
 
+
 # Reverse numbers list (for worst case sorted data test)
 print("\n*Generating random data, one moment please...*\n")
 Test_100 = [random.randint(0, 100) for x in reversed(range(100))]
@@ -95,5 +97,57 @@ print("  1,000\t\t\t\t" + str(stop - start))
 
 start = perf_counter()
 Test_10K_Result = radixSort(Test_10K)
+stop = perf_counter()
+print("  10,000\t\t\t" + str(stop - start))
+
+#Test Bubble Sort BEST Case
+print("Running BEST Case for Bubble Sort:")
+start = perf_counter()
+Test_100_Result = bubble_sort(Test_100)
+stop = perf_counter()
+print("  Size:\t\t\t\tTime Elapsed:")
+print("  100\t\t\t\t" + str(stop - start))
+
+start = perf_counter()
+bubble_sort(Test_1K)
+stop = perf_counter()
+print("  1,000\t\t\t\t" + str(stop - start))
+
+start = perf_counter()
+bubble_sort(Test_10K)
+stop = perf_counter()
+print("  10,000\t\t\t" + str(stop - start))
+
+#Test Bubble Sort AVERAGE Case
+print("Running AVERAGE Case for Bubble Sort:")
+start = perf_counter()
+Test_100_Result = bubble_sort(Test_100)
+stop = perf_counter()
+print("  Size:\t\t\t\tTime Elapsed:")
+print("  100\t\t\t\t" + str(stop - start))
+start = perf_counter()
+Test_1K_Result = bubble_sort(Test_1K)
+stop = perf_counter()
+print("  1,000\t\t\t\t" + str(stop - start))
+
+start = perf_counter()
+Test_10K_Result = bubble_sort(Test_10K)
+stop = perf_counter()
+print("  10,000\t\t\t" + str(stop - start))
+
+#Test Bubble Sort WORST Case
+print("Running WORST Case for Bubble Sort:")
+start = perf_counter()
+Test_100_Result = bubble_sort(Test_100)
+stop = perf_counter()
+print("  Size:\t\t\t\tTime Elapsed:")
+print("  100\t\t\t\t" + str(stop - start))
+start = perf_counter()
+Test_1K_Result = bubble_sort(Test_1K)
+stop = perf_counter()
+print("  1,000\t\t\t\t" + str(stop - start))
+
+start = perf_counter()
+Test_10K_Result = bubble_sort(Test_10K)
 stop = perf_counter()
 print("  10,000\t\t\t" + str(stop - start))
