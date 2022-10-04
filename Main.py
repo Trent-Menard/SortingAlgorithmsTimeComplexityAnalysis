@@ -12,76 +12,50 @@ from RadixSort import radixSort
 
 from ListGeneration import ListGeneration
 
-import random
 from time import perf_counter
+import random
 
 # READ: Quicksort isn't working rn. Either fix bug or find new alg.
 # Code is messy & repetitive but I plan on making functions to clean it up later
 
-Test_100_Result = []
-Test_1K_Result = []
-Test_10K_Result = []
+# Use the same data set for each algorithm.
+tst_lst = ListGeneration()
 
-rdx = ListGeneration()
+def runRadixTest(listToSort):
+    start = perf_counter()
+    test_result = radixSort(listToSort)
+    stop = perf_counter()
+    print("\t" + str(len(listToSort)) + "\t\t\t\t" + str(stop - start))
+    return test_result;
 
 # Test Radix sort BEST case (already sorted): Ω(n+k)
 print("Running BEST Case for RADIX Sort:")
-start = perf_counter()
-Test_100_Result = radixSort(rdx.List_100_Ascending)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_100_Result = radixSort(rdx.List_1K_Ascending)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = radixSort(rdx.List_10K_Ascending)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
-
+print("\tSize:\t\t\t\tTime Elapsed:")
+runRadixTest(tst_lst.List_100_Ascending)
+runRadixTest(tst_lst.List_1K_Ascending)
+runRadixTest(tst_lst.List_10K_Ascending)
 
 # Test Radix sort AVERAGE (random) case: θ(nk)
-print("Running AVERAGE Case for RADIX Sort:")
-start = perf_counter()
-Test_100_Result = radixSort(rdx.List_100_Random)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = radixSort(rdx.List_1K_Random)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = radixSort(rdx.List_10K_Random)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
-
+print("\nRunning AVERAGE Case for RADIX Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runRadixTest(tst_lst.List_100_Random)
+runRadixTest(tst_lst.List_1K_Random)
+runRadixTest(tst_lst.List_10K_Random)
 
 # Test Radix sort WORST case O(nk):
-print("Running WORST Case for RADIX Sort:")
-start = perf_counter()
-Test_100_Result = radixSort(rdx.List_100_Random)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = radixSort(rdx.List_1K_Random)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = radixSort(rdx.List_10K_Random)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
+print("\nRunning WORST Case for RADIX Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runRadixTest(tst_lst.List_100_Random)
+runRadixTest(tst_lst.List_1K_Random)
+runRadixTest(tst_lst.List_10K_Random)
 
 #The Beginning Of the Bubble Test
-Test_100_Result = []
-Test_1K_Result = []
-Test_10K_Result = []
+
+Test_100 = []
+
+Test_1K = []
+
+Test_10K = []
 
 # Ascending lists (for already sorted data test)
 Test_100 = [x for x in range(100)]
