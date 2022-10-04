@@ -13,7 +13,7 @@ from RadixSort import radixSort
 from ListGeneration import ListGeneration
 
 from time import perf_counter
-import random
+#import random(Dont need since in ListGeneration)
 
 # READ: Quicksort isn't working rn. Either fix bug or find new alg.
 # Code is messy & repetitive but I plan on making functions to clean it up later
@@ -49,169 +49,60 @@ runRadixTest(tst_lst.List_100_Random)
 runRadixTest(tst_lst.List_1K_Random)
 runRadixTest(tst_lst.List_10K_Random)
 
-#The Beginning Of the Bubble Test
+#Starting the Bubble Sort Test
+def runBubbleTest(listToSort):
+    start = perf_counter()
+    test_result = bubble_sort(listToSort)
+    stop = perf_counter()
+    print("\t" + str(len(listToSort)) + "\t\t\t\t" + str(stop - start))
+    return test_result;
 
-Test_100 = []
+# Test Bubble sort BEST case (already sorted): Ω(n)
+print("Running BEST Case for BUBBLE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runBubbleTest(tst_lst.List_100_Ascending)
+runBubbleTest(tst_lst.List_1K_Ascending)
+runBubbleTest(tst_lst.List_10K_Ascending)
 
-Test_1K = []
+# Test Bubble sort AVERAGE (random) case: θ(n^2)
+print("\nRunning AVERAGE Case for BUBBLE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runBubbleTest(tst_lst.List_100_Random)
+runBubbleTest(tst_lst.List_1K_Random)
+runBubbleTest(tst_lst.List_10K_Random)
 
-Test_10K = []
+# Test Bubble sort WORST case O(n^2):
+print("\nRunning WORST Case for BUBBLE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runBubbleTest(tst_lst.List_100_Random)
+runBubbleTest(tst_lst.List_1K_Random)
+runBubbleTest(tst_lst.List_10K_Random)
 
-# Ascending lists (for already sorted data test)
-Test_100 = [x for x in range(100)]
+#Starting the Merge Sort Test
+def runMergeTest(listToSort):
+    start = perf_counter()
+    test_result = merge_sort(listToSort)
+    stop = perf_counter()
+    print("\t" + str(len(listToSort)) + "\t\t\t\t" + str(stop - start))
+    return test_result;
 
-Test_1K = list.copy(Test_100)
-Test_1K += [x for x in range(100, 1_000)]
+# Test Merge sort BEST case (already sorted): Ω(n log(n))
+print("Running BEST Case for MERGE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runMergeTest(tst_lst.List_100_Ascending)
+runMergeTest(tst_lst.List_1K_Ascending)
+runMergeTest(tst_lst.List_10K_Ascending)
 
-Test_10K = list.copy(Test_1K)
-Test_10K += [x for x in range(1_000, 10_000)]
+# Test Merge sort AVERAGE (random) case: θ(n log(n))
+print("\nRunning AVERAGE Case for MERGE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runMergeTest(tst_lst.List_100_Random)
+runMergeTest(tst_lst.List_1K_Random)
+runMergeTest(tst_lst.List_10K_Random)
 
-#Test Bubble Sort BEST Case Ω(n)
-print("Running BEST Case for Bubble Sort:")
-start = perf_counter()
-Test_100_Result = bubble_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-
-# start = perf_counter()
-# bubble_sort(Test_1K)
-# stop = perf_counter()
-# print("  1,000\t\t\t\t" + str(stop - start))
-
-# start = perf_counter()
-# bubble_sort(Test_10K)
-# stop = perf_counter()
-# print("  10,000\t\t\t" + str(stop - start))
-
-# Random numbers list (for unsorted data test)
-print("\n*Generating random data, one moment please...*\n")
-Test_100 = [random.randint(0, 100) for x in range(100)]
-
-Test_1K = [random.randint(0, 1_000) for x in range(0, 1_000)]
-
-Test_10K = [random.randint(0, 10_000) for x in range(0, 10_000)]
-
-#Test Bubble Sort AVERAGE Case Ω(n^2)
-print("Running AVERAGE Case for Bubble Sort:")
-start = perf_counter()
-Test_100_Result = bubble_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = bubble_sort(Test_1K)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-# start = perf_counter()
-# Test_10K_Result = bubble_sort(Test_10K)
-# stop = perf_counter()
-# print("  10,000\t\t\t" + str(stop - start))
-
-# Reverse numbers list (for worst case sorted data test)
-print("\n*Generating random data, one moment please...*\n")
-Test_100 = [random.randint(0, 100) for x in reversed(range(100))]
-
-Test_1K = [random.randint(0, 1_000) for x in reversed(range(0, 1_000))]
-
-Test_10K = [random.randint(0, 10_000) for x in reversed(range(0, 10_000))]
-
-#Test Bubble Sort WORST Case Ω(n^2)
-print("Running WORST Case for Bubble Sort:")
-start = perf_counter()
-Test_100_Result = bubble_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = bubble_sort(Test_1K)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = bubble_sort(Test_10K)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
-
-#The Beginning Of the Merge Test
-Test_100_Result = []
-Test_1K_Result = []
-Test_10K_Result = []
-
-# Ascending lists (for already sorted data test)
-Test_100 = [x for x in range(100)]
-
-Test_1K = list.copy(Test_100)
-Test_1K += [x for x in range(100, 1_000)]
-
-Test_10K = list.copy(Test_1K)
-Test_10K += [x for x in range(1_000, 10_000)]
-
-#Test Merge Sort BEST Case Ω(n log(n))
-print("Running BEST Case for Merge Sort:")
-start = perf_counter()
-Test_100_Result = merge_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-merge_sort(Test_1K)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-merge_sort(Test_10K)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
-
-# Random numbers list (for unsorted data test)
-print("\n*Generating random data, one moment please...*\n")
-Test_100 = [random.randint(0, 100) for x in range(100)]
-
-Test_1K = [random.randint(0, 1_000) for x in range(0, 1_000)]
-
-Test_10K = [random.randint(0, 10_000) for x in range(0, 10_000)]
-
-#Test Merge Sort AVERAGE Case Θ(n log(n))
-print("Running AVERAGE Case for Merge Sort:")
-start = perf_counter()
-Test_100_Result = merge_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = merge_sort(Test_1K)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = merge_sort(Test_10K)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
-
-# Reverse numbers list (for worst case sorted data test)
-print("\n*Generating random data, one moment please...*\n")
-Test_100 = [random.randint(0, 100) for x in reversed(range(100))]
-
-Test_1K = [random.randint(0, 1_000) for x in reversed(range(0, 1_000))]
-
-Test_10K = [random.randint(0, 10_000) for x in reversed(range(0, 10_000))]
-
-#Test Merge Sort WORST Case O(n log(n))
-print("Running WORST Case for Merge Sort:")
-start = perf_counter()
-Test_100_Result = merge_sort(Test_100)
-stop = perf_counter()
-print("  Size:\t\t\t\tTime Elapsed:")
-print("  100\t\t\t\t" + str(stop - start))
-start = perf_counter()
-Test_1K_Result = merge_sort(Test_1K)
-stop = perf_counter()
-print("  1,000\t\t\t\t" + str(stop - start))
-
-start = perf_counter()
-Test_10K_Result = merge_sort(Test_10K)
-stop = perf_counter()
-print("  10,000\t\t\t" + str(stop - start))
+# Test Merge sort WORST case O(n log(n)):
+print("\nRunning WORST Case for MERGE Sort:")
+print("\tSize:\t\t\t\tTime Elapsed:")
+runMergeTest(tst_lst.List_100_Random)
+runMergeTest(tst_lst.List_1K_Random)
+runMergeTest(tst_lst.List_10K_Random)
