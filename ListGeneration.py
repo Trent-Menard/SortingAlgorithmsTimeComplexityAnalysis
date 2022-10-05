@@ -18,9 +18,10 @@ class ListGeneration:
         self.List_10K_Ascending = list.copy(self.List_1K_Ascending)
         self.List_10K_Ascending += [x for x in range(1_000, 10_000)]
         
-        self.List_100_Random = [random.randint(0, 100) for x in range(100)]
-        self.List_1K_Random = [random.randint(0, 1_000) for x in range(1_000)]
-        self.List_10K_Random = [random.randint(0, 10_000) for x in range(10_000)]
+        # Larger variance = longer sort time, don't want too big b/c bbl is quad
+        self.List_100_Random = [random.randint(0, 100_000) for x in range(100)]
+        self.List_1K_Random = [random.randint(0, 100_000) for x in range(1_000)]
+        self.List_10K_Random = [random.randint(0, 100_000) for x in range(10_000)]
         
         self.List_100_Reversed = [x for x in reversed(range(100))]
         self.List_1K_Reversed = [x for x in reversed(range(0, 1_000))]
