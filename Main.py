@@ -13,14 +13,11 @@ from RadixSort import radixSort
 from ListGeneration import ListGeneration
 
 from time import perf_counter
-
 # READ: Quicksort isn't working rn. Either fix bug or find new alg.
 # Code is messy & repetitive but I plan on making functions to clean it up later
 
 # Use the same data set for each algorithm.
-tst_lst = ListGeneration()
-
-#    print(f'Size: {len(listToSort)} {"" : >5} Time Elapsed: {stop - start : .5f} {"Max" : >5}')
+tst_lst = ListGeneration(1)
 
 def printHeader():
     print(f'{"Size" : ^15} {"Time Elapsed" : ^15} {"Min" : ^15} {"Max" : ^15} {"Variance" : ^15}')
@@ -33,16 +30,14 @@ def runRadixTest(listToSort):
     start = perf_counter()
     test_result = radixSort(listToSort)
     stop = perf_counter()
-    # print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {listToSort[0] : ^15} {listToSort[-1] : ^15} {listToSort[-1] - listToSort[0] : ^15}' )
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {"TBD" : ^15} {"TBD" : ^15} {"TBD" : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
     return test_result;
 
 def runMergeTest(listToSort):
     start = perf_counter()
     test_result = merge_sort(listToSort)
     stop = perf_counter()
-    # print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {listToSort[0] : ^15} {listToSort[-1] : ^15} {listToSort[-1] - listToSort[0] : ^15}' )
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {"TBD" : ^15} {"TBD" : ^15} {"TBD" : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
 
     return test_result;
 
@@ -50,11 +45,9 @@ def runBubbleTest(listToSort):
     start = perf_counter()
     test_result = bubble_sort(listToSort)
     stop = perf_counter()
-    # print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {listToSort[0] : ^15} {listToSort[-1] : ^15} {listToSort[-1] - listToSort[0] : ^15}' )
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {"TBD" : ^15} {"TBD" : ^15} {"TBD" : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
 
     return test_result;
-
 
 # Test Radix sort BEST case (already sorted): Ω(n+k)
 printSortHeader("BEST", "RADIX")
