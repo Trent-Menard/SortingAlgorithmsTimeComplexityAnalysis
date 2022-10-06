@@ -6,7 +6,7 @@ Created on Fri Sep 30 20:59:27 2022
 """
 
 from BubbleSort import bubble_sort
-# from QuickSort import quick_sort
+from QuickSort import quickSort
 from MergeSort import merge_sort
 from RadixSort import radixSort
 
@@ -110,3 +110,21 @@ printSortHeader("WORST", "MERGE")
 printHeader()
 for x in tst_lst.cumulative_dataset_descending:
     runMergeTest(x)
+    
+#Starting the QuickSort Test
+print("-----------------------------------------------------------------------------")
+
+# Test QuickSorts Best and Average case: θ(n log(n)) 
+# (Randomized numbers, AKA: NOT SORTED)
+#printSortHeader("AVERAGE", "QUICK")
+#runQuickSort(tst_lst.List_100_Random)
+#runQuickSort(tst_lst.List_1K_Random)
+#runQuickSort(tst_lst.List_10K_Random)
+#runQuickSort(tst_lst.List_10K_Random)
+#runQuickSort(tst_lst.List_100QuiK_Random)
+
+printSortHeader("WORST", "QUICK")
+#runQuickSort(tst_lst.List_100_Ascending)
+#runQuickSort(tst_lst.List_1K_Ascending)
+#runQuickSort(tst_lst.List_10K_Ascending)
+#runQuickSort(tst_lst.List_100K_Ascending)
