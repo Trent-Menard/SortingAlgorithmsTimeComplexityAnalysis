@@ -17,10 +17,10 @@ from time import perf_counter
 # Code is messy & repetitive but I plan on making functions to clean it up later
 
 # Use the same data set for each algorithm.
-tst_lst = ListGeneration(1)
+tst_lst = ListGeneration()
 
 def printHeader():
-    print(f'{"Size" : ^15} {"Time Elapsed" : ^15} {"Min" : ^15} {"Max" : ^15} {"Variance" : ^15}')
+    print(f'{"Size" : ^15} {"Time Elapsed" : ^15} {"Min" : ^15} {"Max" : ^10} {"Range" : ^15}')
     
 def printSortHeader(sort, sortCase):
     print()
@@ -30,14 +30,14 @@ def runRadixTest(listToSort):
     start = perf_counter()
     test_result = radixSort(listToSort)
     stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
     return test_result;
 
 def runMergeTest(listToSort):
     start = perf_counter()
     test_result = merge_sort(listToSort)
     stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
 
     return test_result;
 
@@ -45,73 +45,68 @@ def runBubbleTest(listToSort):
     start = perf_counter()
     test_result = bubble_sort(listToSort)
     stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^15} {max(listToSort) - min(listToSort) : ^15}' )
+    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
 
     return test_result;
+
+# Run each dataset for each sorting algorithm
+
+# These tests could be combined in for loop but is 
+# designed this way for propor formatting
 
 # Test Radix sort BEST case (already sorted): Ω(n+k)
 printSortHeader("BEST", "RADIX")
 printHeader()
-runRadixTest(tst_lst.List_100_Ascending)
-runRadixTest(tst_lst.List_1K_Ascending)
-runRadixTest(tst_lst.List_10K_Ascending)
+for x in tst_lst.cumulative_dataset_ascending:
+    runRadixTest(x)
 
 # Test Radix sort AVERAGE (random) case: θ(nk)
 printSortHeader("AVERAGE", "RADIX")
 printHeader()
-runRadixTest(tst_lst.List_100_Random)
-runRadixTest(tst_lst.List_1K_Random)
-runRadixTest(tst_lst.List_10K_Random)
-
+for x in tst_lst.cumulative_dataset_random:
+    runRadixTest(x)
+    
 # Test Radix sort WORST case O(nk):
 printSortHeader("WORST", "RADIX")
 printHeader()
-runRadixTest(tst_lst.List_100_Reversed)
-runRadixTest(tst_lst.List_1K_Reversed)
-runRadixTest(tst_lst.List_10K_Reversed)
-
+for x in tst_lst.cumulative_dataset_descending:
+    runRadixTest(x)
+    
+print("----------------------------------------------------------------------")
 #Starting the Bubble Sort Test
-print("-----------------------------------------------------------------------------")
-# Test Bubble sort BEST case (already sorted): Ω(n)
+
 printSortHeader("BEST", "BUBBLE")
 printHeader()
-runBubbleTest(tst_lst.List_100_Ascending)
-runBubbleTest(tst_lst.List_1K_Ascending)
-runBubbleTest(tst_lst.List_10K_Ascending)
+for x in tst_lst.cumulative_dataset_ascending:
+    runBubbleTest(x)
 
-# Test Bubble sort AVERAGE (random) case: θ(n^2)
 printSortHeader("AVERAGE", "BUBBLE")
 printHeader()
-runBubbleTest(tst_lst.List_100_Random)
-runBubbleTest(tst_lst.List_1K_Random)
-runBubbleTest(tst_lst.List_10K_Random)
+for x in tst_lst.cumulative_dataset_random:
+    runBubbleTest(x)
 
-# Test Bubble sort WORST case O(n^2):
 printSortHeader("WORST", "BUBBLE")
 printHeader()
-runBubbleTest(tst_lst.List_100_Reversed)
-runBubbleTest(tst_lst.List_1K_Reversed)
-runBubbleTest(tst_lst.List_10K_Reversed)
-
+for x in tst_lst.cumulative_dataset_descending:
+    runBubbleTest(x)
+    
+print("----------------------------------------------------------------------")
 #Starting the Merge Sort Test
-print("-----------------------------------------------------------------------------")
+
 # Test Merge sort BEST case (already sorted): Ω(n log(n))
 printSortHeader("BEST", "MERGE")
 printHeader()
-runMergeTest(tst_lst.List_100_Ascending)
-runMergeTest(tst_lst.List_1K_Ascending)
-runMergeTest(tst_lst.List_10K_Ascending)
+for x in tst_lst.cumulative_dataset_ascending:
+    runMergeTest(x)
 
 # Test Merge sort AVERAGE (random) case: θ(n log(n))
 printSortHeader("AVERAGE", "MERGE")
 printHeader()
-runMergeTest(tst_lst.List_100_Random)
-runMergeTest(tst_lst.List_1K_Random)
-runMergeTest(tst_lst.List_10K_Random)
+for x in tst_lst.cumulative_dataset_random:
+    runMergeTest(x)
 
 # Test Merge sort WORST case O(n log(n)):
 printSortHeader("WORST", "MERGE")
 printHeader()
-runMergeTest(tst_lst.List_100_Reversed)
-runMergeTest(tst_lst.List_1K_Reversed)
-runMergeTest(tst_lst.List_10K_Reversed)
+for x in tst_lst.cumulative_dataset_descending:
+    runMergeTest(x)
