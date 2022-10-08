@@ -8,10 +8,10 @@ Created on Fri Sep 30 20:59:27 2022
 from RadixSort import RadixSort as radix
 from MergeSort import MergeSort as merge
 from BubbleSort import BubbleSort as bubble
+#from QuickSort import quickSort
 
 from ListGeneration import ListGeneration
 
-# READ: Quicksort isn't working rn. Either fix bug or find new alg.
 # Code is messy & repetitive but I plan on making functions to clean it up later
 
 # Use the same data set for each algorithm.
@@ -32,6 +32,7 @@ def printSortHeader(sort, sortCase):
 
 # These tests could be combined in for loop but is 
 # designed this way for propor formatting
+
 
 # Test Radix sort BEST case (already sorted): Ω(n+k)
 printSortHeader("BEST", "RADIX")
@@ -78,7 +79,7 @@ for x in tst_lst.cumulative_dataset_descending:
     mer.sort(x)
     print(f'{len(x) : ^15} {"": ^2} {mer.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
 
-# print("----------------------------------------------------------------------")
+print("----------------------------------------------------------------------")
 #Starting the Bubble Sort Test
 
 printSortHeader("BEST", "BUBBLE")
@@ -99,19 +100,24 @@ for x in tst_lst.cumulative_dataset_descending:
     bbl.sort(x)
     print(f'{len(x) : ^15} {"": ^2} {bbl.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
 print("----------------------------------------------------------------------")
+
 #Starting the QuickSort Test
 
 # Test QuickSorts Best and Average case: θ(n log(n)) 
-# (Randomized numbers, AKA: NOT SORTED)
-#printSortHeader("AVERAGE", "QUICK")
-#runQuickSort(tst_lst.List_100_Random)
-#runQuickSort(tst_lst.List_1K_Random)
-#runQuickSort(tst_lst.List_10K_Random)
-#runQuickSort(tst_lst.List_10K_Random)
-#runQuickSort(tst_lst.List_100QuiK_Random)
+#(Randomized numbers, AKA: NOT SORTED)
+
+#size = len(tst_lst.cumulative_dataset_random)
+#rand = tst_lst.cumulative_dataset_random
+#asc = tst_lst.cumulative_dataset_ascending
+#desc = tst_lst.cumulative_dataset_descending
+
+#printSortHeader("AVERAGE and Best case", "QUICK")
+#printHeader()
+
+#quickSort(tst_lst.cumulative_dataset_random,0,size-1)
 
 # printSortHeader("WORST", "QUICK")
-#runQuickSort(tst_lst.List_100_Ascending)
+#quick(tst_lst.List_100_Ascending)
 #runQuickSort(tst_lst.List_1K_Ascending)
 #runQuickSort(tst_lst.List_10K_Ascending)
 #runQuickSort(tst_lst.List_100K_Ascending)
