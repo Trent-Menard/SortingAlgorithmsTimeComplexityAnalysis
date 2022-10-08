@@ -5,7 +5,6 @@ Created on Mon Oct  3 22:01:34 2022
 @author: Trent
 """
 import numpy as np
-# ascending_ints_100
 
 # Generates new list of integers each time this object is created.
 # Used for testing various sorting algorithms in Main.py.
@@ -25,10 +24,10 @@ class ListGeneration:
         self.List_100K_Ascending = np.arange(100_000).tolist()
         
         # Create & fill array w/ descending values in range
-        self.List_100_Reversed = np.arange(start=100, stop=0, step=-1).tolist()
-        self.List_1K_Reversed = np.arange(start=1_000, stop=0, step=-1).tolist()
-        self.List_10K_Reversed = np.arange(start=10_000, stop=0, step=-1).tolist()
-        self.List_100K_Reversed = np.arange(start=100_000, stop=0, step=-1).tolist()
+        self.List_100_Descending = np.arange(start=100, stop=0, step=-1).tolist()
+        self.List_1K_Descending = np.arange(start=1_000, stop=0, step=-1).tolist()
+        self.List_10K_Descending = np.arange(start=10_000, stop=0, step=-1).tolist()
+        self.List_100K_Descending = np.arange(start=100_000, stop=0, step=-1).tolist()
         
         # Larger variance = longer sort time, don't want too big b/c bbl is quad
         # Create & fill array w/ random values in range
@@ -39,5 +38,5 @@ class ListGeneration:
         
         # These are lists of the respective datasets
         self.cumulative_dataset_ascending = [self.List_100_Ascending, self.List_1K_Ascending, self.List_10K_Ascending, self.List_100K_Ascending]
-        self.cumulative_dataset_descending = [self.List_100_Reversed, self.List_1K_Reversed, self.List_10K_Reversed, self.List_100K_Reversed]
+        self.cumulative_dataset_descending = [self.List_100_Descending, self.List_1K_Descending, self.List_10K_Descending, self.List_100K_Descending]
         self.cumulative_dataset_random = [self.List_100_Random, self.List_1K_Random, self.List_10K_Random, self.List_100K_Random]

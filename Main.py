@@ -5,19 +5,21 @@ Created on Fri Sep 30 20:59:27 2022
 @author: Trent
 """
 
-from BubbleSort import bubble_sort
-from QuickSort import quickSort
-from MergeSort import merge_sort
-from RadixSort import radixSort
+from RadixSort import RadixSort as radix
+from MergeSort import MergeSort as merge
+from BubbleSort import BubbleSort as bubble
 
 from ListGeneration import ListGeneration
 
-from time import perf_counter
 # READ: Quicksort isn't working rn. Either fix bug or find new alg.
 # Code is messy & repetitive but I plan on making functions to clean it up later
 
 # Use the same data set for each algorithm.
-tst_lst = ListGeneration()
+tst_lst = ListGeneration(0)
+
+res = radix()
+mer = merge()
+bbl = bubble()
 
 def printHeader():
     print(f'{"Size" : ^15} {"Time Elapsed" : ^15} {"Min" : ^15} {"Max" : ^10} {"Range" : ^15}')
@@ -25,29 +27,6 @@ def printHeader():
 def printSortHeader(sort, sortCase):
     print()
     print(f'{"" : ^24} Running {sort} Case for {sortCase} Sort')
-
-def runRadixTest(listToSort):
-    start = perf_counter()
-    test_result = radixSort(listToSort)
-    stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
-    return test_result;
-
-def runMergeTest(listToSort):
-    start = perf_counter()
-    test_result = merge_sort(listToSort)
-    stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
-
-    return test_result;
-
-def runBubbleTest(listToSort):
-    start = perf_counter()
-    test_result = bubble_sort(listToSort)
-    stop = perf_counter()
-    print(f'{len(listToSort) : ^15} {"": ^2} {stop - start:.5f} {"": ^4} {min(listToSort) : ^15} {max(listToSort) : ^10} {max(listToSort) - min(listToSort) : ^15}' )
-
-    return test_result;
 
 # Run each dataset for each sorting algorithm
 
@@ -58,37 +37,22 @@ def runBubbleTest(listToSort):
 printSortHeader("BEST", "RADIX")
 printHeader()
 for x in tst_lst.cumulative_dataset_ascending:
-    runRadixTest(x)
+    res.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {res.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
 
 # Test Radix sort AVERAGE (random) case: θ(nk)
 printSortHeader("AVERAGE", "RADIX")
 printHeader()
 for x in tst_lst.cumulative_dataset_random:
-    runRadixTest(x)
+    res.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {res.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
     
 # Test Radix sort WORST case O(nk):
 printSortHeader("WORST", "RADIX")
 printHeader()
 for x in tst_lst.cumulative_dataset_descending:
-    runRadixTest(x)
-    
-print("----------------------------------------------------------------------")
-#Starting the Bubble Sort Test
-
-printSortHeader("BEST", "BUBBLE")
-printHeader()
-for x in tst_lst.cumulative_dataset_ascending:
-    runBubbleTest(x)
-
-printSortHeader("AVERAGE", "BUBBLE")
-printHeader()
-for x in tst_lst.cumulative_dataset_random:
-    runBubbleTest(x)
-
-printSortHeader("WORST", "BUBBLE")
-printHeader()
-for x in tst_lst.cumulative_dataset_descending:
-    runBubbleTest(x)
+    res.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {res.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
     
 print("----------------------------------------------------------------------")
 #Starting the Merge Sort Test
@@ -97,22 +61,45 @@ print("----------------------------------------------------------------------")
 printSortHeader("BEST", "MERGE")
 printHeader()
 for x in tst_lst.cumulative_dataset_ascending:
-    runMergeTest(x)
+    mer.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {mer.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
 
 # Test Merge sort AVERAGE (random) case: θ(n log(n))
 printSortHeader("AVERAGE", "MERGE")
 printHeader()
 for x in tst_lst.cumulative_dataset_random:
-    runMergeTest(x)
+    mer.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {mer.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
 
 # Test Merge sort WORST case O(n log(n)):
 printSortHeader("WORST", "MERGE")
 printHeader()
 for x in tst_lst.cumulative_dataset_descending:
-    runMergeTest(x)
-    
+    mer.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {mer.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
+
+# print("----------------------------------------------------------------------")
+#Starting the Bubble Sort Test
+
+printSortHeader("BEST", "BUBBLE")
+printHeader()
+for x in tst_lst.cumulative_dataset_ascending:
+    bbl.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {bbl.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
+
+printSortHeader("AVERAGE", "BUBBLE")
+printHeader()
+for x in tst_lst.cumulative_dataset_random:
+    bbl.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {bbl.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
+
+printSortHeader("WORST", "BUBBLE")
+printHeader()
+for x in tst_lst.cumulative_dataset_descending:
+    bbl.sort(x)
+    print(f'{len(x) : ^15} {"": ^2} {bbl.timing:.5f} {"": ^4} {min(x) : ^15} {max(x) : ^10} {max(x) - min(x) : ^15}')
+print("----------------------------------------------------------------------")
 #Starting the QuickSort Test
-print("-----------------------------------------------------------------------------")
 
 # Test QuickSorts Best and Average case: θ(n log(n)) 
 # (Randomized numbers, AKA: NOT SORTED)
@@ -123,7 +110,7 @@ print("-------------------------------------------------------------------------
 #runQuickSort(tst_lst.List_10K_Random)
 #runQuickSort(tst_lst.List_100QuiK_Random)
 
-printSortHeader("WORST", "QUICK")
+# printSortHeader("WORST", "QUICK")
 #runQuickSort(tst_lst.List_100_Ascending)
 #runQuickSort(tst_lst.List_1K_Ascending)
 #runQuickSort(tst_lst.List_10K_Ascending)
