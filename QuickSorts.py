@@ -2,7 +2,7 @@
 """
 Created on Sat Oct  8 21:25:50 2022
 
-@author: Ryan
+@author: Ryan Hasty
 """
 
 from time import perf_counter
