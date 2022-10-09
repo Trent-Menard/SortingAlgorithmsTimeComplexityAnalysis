@@ -8,7 +8,7 @@ Created on Fri Sep 30 20:59:27 2022
 from RadixSort import RadixSort as radix
 from MergeSort import MergeSort as merge
 from BubbleSort import BubbleSort as bubble
-#from QuickSort import quickSort
+from QuickSort import QuickSort as quick
 from ListGeneration import ListGeneration
 
 # Use the same data set for each algorithm.
@@ -16,6 +16,7 @@ tst_lst = ListGeneration(0)
 res = radix()
 mer = merge()
 bbl = bubble()
+quk = quick()
     
 def printSortHeader(sort, sortCase):
     print()
@@ -46,8 +47,12 @@ for x in tst_lst.cumulative_dataset_ascending:
         print(f'  Merge: {mer.timing:.5f} s')
         bbl.sort(x)
         print(f'  Bubble: {bbl.timing:.5f} s')
+        quk.sort(x, False)
+        print(f'  Quick: {quk.timing:.5f} s')
         print()
+
 printLineSeparation()
+print(res.timing_results)
     
 printSortHeader("AVERAGE", "RADIX / MERGE / BUBBLE")
 for x in tst_lst.cumulative_dataset_random:
@@ -89,7 +94,6 @@ for x in tst_lst.cumulative_dataset_descending:
         print(f'  Bubble: {bbl.timing:.5f} s')
     print()
 
-
 #Starting the QuickSort Test
 
 # Test QuickSorts Best and Average case: θ(n log(n)) 
@@ -110,4 +114,3 @@ for x in tst_lst.cumulative_dataset_descending:
 #runQuickSort(tst_lst.List_1K_Ascending)
 #runQuickSort(tst_lst.List_10K_Ascending)
 #runQuickSort(tst_lst.List_100K_Ascending)
-    
