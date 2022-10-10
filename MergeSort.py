@@ -59,7 +59,7 @@ class MergeSort():
         self.timing = self.__stop - self.__start
         
         convenience_alias = None
-                
+        
         if len(self.sorted) == 1_000:
             convenience_alias = "1K"
         elif len(self.sorted) == 10_000:
