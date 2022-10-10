@@ -28,7 +28,11 @@ all_timing_radix = []
 all_timing_bubble = []
 all_timing_quick= []
 
-# New merge object is created each time a dataset is run and we are 
+quk = quick()
+quk.sort(tst_lst.List_100K_Random)
+print(f'Quick sort sorted {len(quk.sorted)} elements in {quk.timing} seconds')
+
+# New <sorting algorithm> object is created each time a dataset is run and we are 
 # appending the results of each timing to a cumulative list.
 
 def enum(listToEnum):

@@ -48,24 +48,22 @@ class QuickS():
             self.pi = self.partition(listToSort, low, high, OptimizePivot)
      
             # Recursive call on the left of pivot
-            
             QuickS.__quickSort(self, listToSort, low, self.pi - 1)
                  
             # Recursive call on the right of pivot
             QuickS.__quickSort(self, listToSort, self.pi + 1, high)
+            
+        return listToSort;
     
     def partition(self, listToSort, low, high, OptimizePivot):
-        # Worst case : pivot is extreme (end or beginning) & pre-sorted (ascending) list
         
-        # set pivot to be last element in listToSort
+        # Pivot is extreme (end or beginning) & pre-sorted list
+        # Set pivot to be last element in listToSort - Worst case
         pivot = listToSort[high]
         
-        # choose the center element of the listToSort - Best case
+        # Choose the center element of the listToSort - Best case
         if OptimizePivot:
             pivot = listToSort[high//2]
-        else:
-            # Set pivot to be last element in listToSort - Worst case
-            pivot = listToSort[high]
             
         # pointer for greater element
         i = low - 1
