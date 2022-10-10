@@ -14,112 +14,105 @@ from ListGeneration import ListGeneration
 # Use the same data set for each algorithm.
 tst_lst = ListGeneration(0)
 
+writeToFile = [""]
+
 def printSortHeader(sort, sortCase):
-    print()
-    print(f'{"" : ^8} Running {sort} Case for {sortCase} Sort')
+    print(f'\n{"" : ^8} Running {sort} Case for {sortCase} Sort')
+    writeToFile.append(f'\n{"" : ^8} Running {sort} Case for {sortCase} Sort\n')
     
 def printLineSeparation():
     for x in range(1, 69):
         print("-", end="")
+        writeToFile.append("-", end="")
+        writeToFile.append("\n\n")
     print()
 
+def quickSort_special_case(listToSort, isBestCase):
+    # Worst case: Pivot is extreme (end or begin) & pre-sorted list
+    # Best case: randomly assorted & pivot is middle element
+    for x in listToSort:
+        if len(x) >= 10_000:
+            print(f'Size: {len(x)}\n  Quick: Computationally too expensive')
+            writeToFile.append(f'Size: {len(x)}\n  Quick: Computationally too expensive\n')
+        else:
+            quickSrt = quick()
+            quickSrt.sort(x, isBestCase)
+            all_timing_quick.append(quickSrt.timing_results)
+            print(f'Size: {len(x)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+            writeToFile.append(f'Size: {len(x)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+            
 all_timing_merge = []
 all_timing_radix = []
 all_timing_bubble = []
 all_timing_quick= []
 
-quk = quick()
-quk.sort(tst_lst.List_100K_Random)
-print(f'Quick sort sorted {len(quk.sorted)} elements in {quk.timing} seconds')
-
 # New <sorting algorithm> object is created each time a dataset is run and we are 
 # appending the results of each timing to a cumulative list.
-
 def enum(listToEnum):
-    for x in enumerate(listToEnum):
+    idx = 0
+    for x in listToEnum:
         
-        if x[0] == 0:
-            printSortHeader("BEST", "RADIX / MERGE / BUBBLE")
-        elif x[0] == 1:
-            printSortHeader("AVERAGE", "RADIX / MERGE / BUBBLE")
-        elif x[0] == 2:
-            printSortHeader("WORST", "RADIX / MERGE / BUBBLE")
         # Size 100,000 is computationally too expensive for Bubble & Quick sort so skip.
-        if len(x[1]) == 100_000:
+        if len(x) >= 100_000:
             mergeSrt = merge()
-            mergeSrt.sort(x[1])
+            mergeSrt.sort(x)
             all_timing_merge.append(mergeSrt.timing_results)
-            print(f'Size: {len(x[1])}')
-            print(f'  Merge: {mergeSrt.timing:.5f} s')
-    
+            print(f'Size: {len(x)}\n  Merge: {mergeSrt.timing:.5f} s')
+            writeToFile.append(f'Size: {len(x)}\n  Merge: {mergeSrt.timing:.5f} s\n')
+                
             radixSrt = radix()
-            radixSrt.sort(x[1])
+            radixSrt.sort(x)
             all_timing_radix.append(radixSrt.timing_results)
             print(f'  Radix: {radixSrt.timing:.5f} s')
-            
             print("  Bubble: Computationally too expensive")
-            # print(f'  Quick: {radixSrt.timing:.5f} s')
-    
+            writeToFile.append(f'  Radix: {radixSrt.timing:.5f} s\n')
+            writeToFile.append(  "Bubble: Computationally too expensive\n")
+
+            
+        # Run each dataset on each sorting algorithm.
         else:
             mergeSrt = merge()
-            mergeSrt.sort(x[1])
+            mergeSrt.sort(x)
             all_timing_merge.append(mergeSrt.timing_results)
-            print(f'Size: {len(x[1])}')
-            print(f'  Merge: {mergeSrt.timing:.5f} s')
+            print(f'Size: {len(x)}\n  Merge: {mergeSrt.timing:.5f} s')
+            writeToFile.append(f'Size: {len(x)}\n  Merge: {mergeSrt.timing:.5f} s\n')
     
             radixSrt = radix()
-            radixSrt.sort(x[1])
+            radixSrt.sort(x)
             all_timing_radix.append(radixSrt.timing_results)
             print(f'  Radix: {radixSrt.timing:.5f} s')
+            writeToFile.append(f'  Radix: {radixSrt.timing:.5f} s\n')
     
             bubbleSrt = bubble()
-            bubbleSrt.sort(x[1])
+            bubbleSrt.sort(x)
             all_timing_bubble.append(bubbleSrt.timing_results)
             print(f'  Bubble: {bubbleSrt.timing:.5f} s')
-            
+            writeToFile.append(f'  Bubble: {bubbleSrt.timing:.5f} s\n')
+                        
         print()
+        idx + 1
             
+# Test Merge sort BEST case (already sorted): Ω(n log(n))
+# Test Radix sort BEST case (already sorted): Ω(n+k)
+printSortHeader("BEST", "MERGE / RADIX / BUBBLE")
 enum(tst_lst.cumulative_dataset_ascending)
+
+# Test Merge sort AVERAGE (random) case: θ(n log(n))
+# Test Radix sort AVERAGE (random) case: θ(nk)
+printSortHeader("AVERAGE", "MERGE / RADIX / BUBBLE")
 enum(tst_lst.cumulative_dataset_random)
-    
-# print("rdx best")
-# for a in rdx_best.timing_results:
-#     for x, y in zip(a.keys(), a.values()):
-#         print(x + " -> " + str(y))
 
-# print("RADIX sort BEST case:")
-# for x in all_timing_radix:
-#     print(x)
-
-        # Test Radix sort BEST case (already sorted): Ω(n+k)
-        # Test Merge sort BEST case (already sorted): Ω(n log(n))
-
-        # Test Radix sort AVERAGE (random) case: θ(nk)
-        # Test Merge sort AVERAGE (random) case: θ(n log(n))
-
-
-        # Test Radix sort WORST case O(nk):
-        # Test Merge sort WORST case O(n log(n)):
-
-# printSortHeader("BEST", "BUBBLE")
-# # Best case : pivot is middle & random data
-# quk.sort(tst_lst.List_100K_Random, True)
-# print("Optomized Pivot: " + str(quk.timing))
-
-# printSortHeader("WORST", "BUBBLE")
-# # Worst case : pivot is extreme (end or beginning) & pre-sorted (ascending) list
-# quk.sort(tst_lst.List_10K_Ascending, False)
-# print("Unoptomized Pivot: " + str(quk.timing))
-
-
-# with open("Results.txt", "w") as out_file:
-#     out_file.writelines()
-
-# print("\nMERGE Results:\n")
-# for x in mer.timing_results:
-#     for y in x.keys():
-#         for z in x.values():
-#             print(y + "\t\t\t" + str(z) + " seconds")
-
-#Starting the QuickSort Test
+# Test Merge sort WORST case O(n log(n)):
+# Test Radix sort WORST case O(nk):
+printSortHeader("WORST", "MERGE / RADIX / BUBBLE")
+enum(tst_lst.cumulative_dataset_descending)
+        
 # Test QuickSorts Best and Average case: θ(n log(n))
+printSortHeader("BEST", "QUICK")
+quickSort_special_case(tst_lst.cumulative_dataset_random, isBestCase=True)
+
+printSortHeader("WORST", "QUICK")
+quickSort_special_case(tst_lst.cumulative_dataset_ascending, isBestCase=False)
+    
+with open("Results.txt", "w") as out_file:
+    out_file.writelines(writeToFile)
