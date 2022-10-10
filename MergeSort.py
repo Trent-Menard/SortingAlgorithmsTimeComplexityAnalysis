@@ -13,25 +13,20 @@ class MergeSort():
         
         self.timing = None
         self.sorted = []
+        self.timing_results = []
         
         # Private attributes used for final time elapsed calculation
         self.__start = None
         self.__stop = None
         
-    def sort(self, arr):
-        self.__start = perf_counter()
-
+    def __merge_sort(self, arr):
         if len(arr) <= 1:
             return arr
         mid = len(arr) // 2
         # Perform merge_sort recursively on both halves
-        left, right = self.sort(arr[:mid]), self.sort(arr[mid:])
+        left, right = self.__merge_sort(arr[:mid]), self.__merge_sort(arr[mid:])
 
         # Merge each side together
-        
-        self.__stop = perf_counter()
-        self.timing = self.__stop - self.__start
-        
         return MergeSort.__merge(self, left, right, arr.copy())
 
     # Private function used for merging
@@ -52,7 +47,25 @@ class MergeSort():
             
         for right_cursor in range(right_cursor, len(right)):
             merged[left_cursor + right_cursor] = right[right_cursor]
-    
-        self.sorted = merged
         
         return merged
+    
+    def sort(self, arr):
+        self.__start = perf_counter()
+    
+        self.sorted = MergeSort.__merge_sort(self, arr)
+    
+        self.__stop = perf_counter()
+        self.timing = self.__stop - self.__start
+        
+        convenience_alias = None
+                
+        if len(self.sorted) == 1_000:
+            convenience_alias = "1K"
+        elif len(self.sorted) == 10_000:
+            convenience_alias = "10K"
+        elif len(self.sorted) == 100_000:
+            convenience_alias = "100K"
+            
+        dictionary = {"test_" + convenience_alias if convenience_alias is not None else "test_" + str(len(self.sorted)):self.timing}
+        self.timing_results.append(dictionary)

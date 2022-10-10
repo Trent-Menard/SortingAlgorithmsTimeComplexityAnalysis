@@ -7,55 +7,72 @@ Created on Sat Oct  8 21:25:50 2022
 
 from time import perf_counter
 
-class QuickSort():
+class QuickS():
     def __init__ (self):
-        
         self.timing = None
         self.sorted = []
-        
+        self.timing_results = []
+
         # Private attributes used for final time elapsed calculation
         self.__start = None
         self.__stop = None
-        
-    def sort(self, listToSort, optimizePivot=False):
+    
+    def sort(self, listToSort, OptimizePivot=False):
         self.__start = perf_counter()
         
+        res = QuickS.__quickSort(self, listToSort, 0, len(listToSort) - 1, OptimizePivot)
         
-        self._low = min(listToSort)
-        self._high = max(listToSort)
+        self.sorted = res
                 
-        if self._low < self._high:
-            # Find pivot element such that
-            # element smaller than pivot are on the left
-            # element greater than pivot are on the right
-            pi = QuickSort.__partition(self, listToSort, optimizePivot)
-     
-            # Recursive call on the left of pivot
-            QuickSort.sort(self, listToSort, pi - 1)
-     
-            # Recursive call on the right of pivot
-            QuickSort.sort(self, listToSort, pi + 1)
-            
         self.__stop = perf_counter()
         self.timing = self.__stop - self.__start
         
-        return self.sorted
+        convenience_alias = None
+                
+        if len(self.sorted) == 1_000:
+            convenience_alias = "1K"
+        elif len(self.sorted) == 10_000:
+            convenience_alias = "10K"
+        elif len(self.sorted) == 100_000:
+            convenience_alias = "100K"
+            
+        dictionary = {"test_" + convenience_alias if convenience_alias is not None else "test_" + str(len(self.sorted)):self.timing}
+        self.timing_results.append(dictionary)
     
-    def __partition(self, listToSort, optimizePivot):
+    def __quickSort(self, listToSort, low, high, OptimizePivot=False):
         
-        # choose the center element of the array - Best case
-        if optimizePivot:
-            pivot = listToSort[self._high//2]
+        if low < high:
+            # Find pivot element such that
+            # element smaller than pivot are on the left
+            # element greater than pivot are on the right
+            self.pi = self.partition(listToSort, low, high, OptimizePivot)
+     
+            # Recursive call on the left of pivot
+            
+            QuickS.__quickSort(self, listToSort, low, self.pi - 1)
+                 
+            # Recursive call on the right of pivot
+            QuickS.__quickSort(self, listToSort, self.pi + 1, high)
+    
+    def partition(self, listToSort, low, high, OptimizePivot):
+        # Worst case : pivot is extreme (end or beginning) & pre-sorted (ascending) list
+        
+        # set pivot to be last element in listToSort
+        pivot = listToSort[high]
+        
+        # choose the center element of the listToSort - Best case
+        if OptimizePivot:
+            pivot = listToSort[high//2]
         else:
-            # Set pivot to be last element in array - Worst case
-            pivot = listToSort[self._high]
-
+            # Set pivot to be last element in listToSort - Worst case
+            pivot = listToSort[high]
+            
         # pointer for greater element
-        i = self._low - 1
+        i = low - 1
      
         # traverse through all elements
         # compare each element with pivot
-        for j in range(self._low, self._high):
+        for j in range(low, high):
             if listToSort[j] <= pivot:
      
                 # If element smaller than pivot is found
@@ -66,25 +83,7 @@ class QuickSort():
                 (listToSort[i], listToSort[j]) = (listToSort[j], listToSort[i])
      
         # Swap the pivot element with the greater element specified by i
-        (listToSort[i + 1], listToSort[self._high]) = (listToSort[self._high], listToSort[i + 1])
+        (listToSort[i + 1], listToSort[high]) = (listToSort[high], listToSort[i + 1])
      
         # Return the position from where partition is done
         return i + 1
-        
-    # def quickSorting(self, array, optimizePivot):
-    #     self.__start = perf_counter()
-                
-    #     if self._low < self._high:
-    #         # Find pivot element such that
-    #         # element smaller than pivot are on the left
-    #         # element greater than pivot are on the right
-    #         pi = self.partition(array, self._low, self._high, optimizePivot)
-     
-    #         # Recursive call on the left of pivot
-    #         self(array, self._low, pi - 1)
-     
-    #         # Recursive call on the right of pivot            
-    #         self(array, pi + 1, self._high)
-
-    #     self.__stop = perf_counter()
-    #     self.timing = self.__stop - self.__start
