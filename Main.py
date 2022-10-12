@@ -26,20 +26,6 @@ def printLineSeparation():
         writeToFile.append("-", end="")
         writeToFile.append("\n\n")
     print()
-
-def quickSort_special_case(listToSort, isBestCase):
-    # Worst case: Pivot is extreme (end or begin) & pre-sorted list
-    # Best case: randomly assorted & pivot is middle element
-    for x in listToSort:
-        if len(x) >= 10_000:
-            print(f'Size: {len(x)}\n  Quick: Computationally too expensive')
-            writeToFile.append(f'Size: {len(x)}\n  Quick: Computationally too expensive\n')
-        else:
-            quickSrt = quick()
-            quickSrt.sort(x, isBestCase)
-            all_timing_quick.append(quickSrt.timing_results)
-            print(f'Size: {len(x)}  \n  Quick: {quickSrt.timing:.5f} s\n')
-            writeToFile.append(f'Size: {len(x)}  \n  Quick: {quickSrt.timing:.5f} s\n')
             
 all_timing_merge = []
 all_timing_radix = []
@@ -108,11 +94,39 @@ printSortHeader("WORST", "MERGE / RADIX / BUBBLE")
 enum(tst_lst.cumulative_dataset_descending)
         
 # Test QuickSorts Best and Average case: θ(n log(n))
-printSortHeader("BEST", "QUICK")
-quickSort_special_case(tst_lst.cumulative_dataset_random, isBestCase=True)
+# Best case: randomly assorted & pivot is middle element
 
-printSortHeader("WORST", "QUICK")
-quickSort_special_case(tst_lst.cumulative_dataset_ascending, isBestCase=False)
+printSortHeader("BEST", "QUICK")
+for x in tst_lst.cumulative_dataset_random:
+    quickSrt = quick()
+    res = quickSrt.sort(x, quickSrt.Case.BEST)
     
+    all_timing_quick.append(quickSrt.timing_results)
+    print(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+    writeToFile.append(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+
+# Pivot is N / 10
+printSortHeader("AVERAGE", "QUICK")
+for x in tst_lst.cumulative_dataset_random:
+    quickSrt = quick()
+    res = quickSrt.sort(x, quickSrt.Case.AVERAGE)
+ 
+    all_timing_quick.append(quickSrt.timing_results)
+    print(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+    writeToFile.append(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+
+# Worst case: Pivot is extreme (end or begin) & pre-sorted list
+printSortHeader("WORST", "QUICK")
+for x in tst_lst.cumulative_dataset_ascending:
+    if len(x) >= 10_000:
+        print(f'Size: {len(x)}\n  Quick: Computationally too expensive')
+        writeToFile.append(f'Size: {len(x)}\n  Quick: Computationally too expensive\n')
+    else:
+        quickSrt = quick()
+        res = quickSrt.sort(x, quickSrt.Case.WORST)
+        all_timing_quick.append(quickSrt.timing_results)
+        print(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+        writeToFile.append(f'Size: {len(res)}  \n  Quick: {quickSrt.timing:.5f} s\n')
+
 with open("Results.txt", "w") as out_file:
     out_file.writelines(writeToFile)

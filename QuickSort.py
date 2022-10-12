@@ -3,11 +3,20 @@
 Created on Sat Oct  8 21:25:50 2022
 
 @author: Ryan Hasty
+
+Code adapted from: https://www.codingcreativo.it/en/python-quicksort/
 """
 
 from time import perf_counter
+from enum import IntEnum
 
 class QuickS():
+        
+    class Case(IntEnum):
+        BEST = 0
+        AVERAGE = 1;
+        WORST = 2
+        
     def __init__ (self):
         self.timing = None
         self.sorted = []
@@ -17,16 +26,15 @@ class QuickS():
         self.__start = None
         self.__stop = None
     
-    def sort(self, listToSort, OptimizePivot=False):
+    def sort(self, listToSort, Case):
+        
         self.__start = perf_counter()
-        
-        res = QuickS.__quickSort(self, listToSort, 0, len(listToSort) - 1, OptimizePivot)
-        
-        self.sorted = res
                 
+        self.sorted = QuickS.__quick_sort(self, listToSort, Case)
+        
         self.__stop = perf_counter()
         self.timing = self.__stop - self.__start
-        
+                
         convenience_alias = None
                 
         if len(self.sorted) == 1_000:
@@ -37,51 +45,35 @@ class QuickS():
             convenience_alias = "100K"
             
         dictionary = {"test_" + convenience_alias if convenience_alias is not None else "test_" + str(len(self.sorted)):self.timing}
-        self.timing_results.append(dictionary)
-    
-    def __quickSort(self, listToSort, low, high, OptimizePivot=False):
-        
-        if low < high:
-            # Find pivot element such that
-            # element smaller than pivot are on the left
-            # element greater than pivot are on the right
-            self.pi = self.partition(listToSort, low, high, OptimizePivot)
-     
-            # Recursive call on the left of pivot
-            QuickS.__quickSort(self, listToSort, low, self.pi - 1)
-                 
-            # Recursive call on the right of pivot
-            QuickS.__quickSort(self, listToSort, self.pi + 1, high)
+        self.timing_results.append(dictionary)        
             
-        return listToSort;
+        return self.sorted;
     
-    def partition(self, listToSort, low, high, OptimizePivot):
+    def __quick_sort(self, listToSort, Case):
         
-        # Pivot is extreme (end or beginning) & pre-sorted list
-        # Set pivot to be last element in listToSort - Worst case
-        pivot = listToSort[high]
+        length = len(listToSort)
         
-        # Choose the center element of the listToSort - Best case
-        if OptimizePivot:
-            pivot = listToSort[high//2]
+        if length <= 1:
+            return listToSort
+        
+        if Case.BEST:
+        # Best Case: N/2
+        # Choose the center element
+            pivot = listToSort.pop(len(listToSort) // 2)
+        elif Case.AVERAGE:
+            # Average cas:e N/10 instead of N/2
+            pivot = listToSort.pop(len(listToSort) // 10)
+        elif Case.WORST:
+            # Worst Case: presorted array + arr[0] or arr[n] as pivot
+            # Set pivot to be last element
+            pivot = listToSort.pop(len(listToSort) - 1)
             
-        # pointer for greater element
-        i = low - 1
-     
-        # traverse through all elements
-        # compare each element with pivot
-        for j in range(low, high):
-            if listToSort[j] <= pivot:
-     
-                # If element smaller than pivot is found
-                # swap it with the greater element pointed by i
-                i = i + 1
-     
-                # Swapping element at i with element at j
-                (listToSort[i], listToSort[j]) = (listToSort[j], listToSort[i])
-     
-        # Swap the pivot element with the greater element specified by i
-        (listToSort[i + 1], listToSort[high]) = (listToSort[high], listToSort[i + 1])
-     
-        # Return the position from where partition is done
-        return i + 1
+        high, low = [], []
+        # Separate into 2 lists - elements smaller than and larger than pivot
+        for number in listToSort:
+            if number > pivot:
+                high.append(number)
+            else:
+                low.append(number)
+        # Recursive calls on sorted listed + pivot re-create it
+        return QuickS.__quick_sort(self, low, Case) + [pivot] + QuickS.__quick_sort(self, high, Case)

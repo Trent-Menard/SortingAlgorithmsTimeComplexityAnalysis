@@ -1,73 +1,29 @@
 
-         Running BEST Case for MERGE / RADIX / BUBBLE Sort
-Size: 100
-  Merge: 0.00020 s
-  Radix: 0.01307 s
-  Bubble: 0.00001 s
-Size: 1000
-  Merge: 0.00255 s
-  Radix: 0.10139 s
-  Bubble: 0.00006 s
-Size: 10000
-  Merge: 0.02489 s
-  Radix: 0.99777 s
-  Bubble: 0.00104 s
-Size: 100000
-  Merge: 0.30322 s
-  Radix: 9.68799 s
-Bubble: Computationally too expensive
-
-         Running AVERAGE Case for MERGE / RADIX / BUBBLE Sort
-Size: 100
-  Merge: 0.00022 s
-  Radix: 0.00900 s
-  Bubble: 0.00060 s
-Size: 1000
-  Merge: 0.00238 s
-  Radix: 0.09366 s
-  Bubble: 0.06496 s
-Size: 10000
-  Merge: 0.03041 s
-  Radix: 0.94084 s
-  Bubble: 6.80566 s
-Size: 100000
-  Merge: 0.38506 s
-  Radix: 10.47926 s
-Bubble: Computationally too expensive
-
-         Running WORST Case for MERGE / RADIX / BUBBLE Sort
-Size: 100
-  Merge: 0.00021 s
-  Radix: 0.01023 s
-  Bubble: 0.00089 s
-Size: 1000
-  Merge: 0.00196 s
-  Radix: 0.09251 s
-  Bubble: 0.10082 s
-Size: 10000
-  Merge: 0.02450 s
-  Radix: 0.93991 s
-  Bubble: 10.21276 s
-Size: 100000
-  Merge: 0.29854 s
-  Radix: 9.57226 s
-Bubble: Computationally too expensive
-
          Running BEST Case for QUICK Sort
 Size: 100  
-  Quick: 0.00050 s
+  Quick: 0.00029 s
 Size: 1000  
-  Quick: 0.03112 s
-Size: 10000
-  Quick: Computationally too expensive
-Size: 100000
-  Quick: Computationally too expensive
+  Quick: 0.00378 s
+Size: 10000  
+  Quick: 0.02983 s
+Size: 100000  
+  Quick: 0.33863 s
+
+         Running AVERAGE Case for QUICK Sort
+Size: 99  
+  Quick: 0.00011 s
+Size: 999  
+  Quick: 0.00119 s
+Size: 9999  
+  Quick: 0.01944 s
+Size: 99999  
+  Quick: 0.20606 s
 
          Running WORST Case for QUICK Sort
 Size: 100  
-  Quick: 0.00091 s
+  Quick: 0.00017 s
 Size: 1000  
-  Quick: 0.06663 s
+  Quick: 0.00210 s
 Size: 10000
   Quick: Computationally too expensive
 Size: 100000
